@@ -19,7 +19,7 @@ dag = DAG('sem6_hw', description='seminar6 homework',
 # рандомное число и печатать его в консоль.
 gen_rand_figure_operator = BashOperator(
     task_id='rand_fig_task', 
-    bash_command='echo {{randint(1, 100)}}', 
+    bash_command='echo $((RANDOM % 100))', 
     dag=dag
     )
 
