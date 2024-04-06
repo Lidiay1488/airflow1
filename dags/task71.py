@@ -45,7 +45,7 @@ def ProcessEmployees():
     @task
     def get_data():
         # NOTE: configure this as appropriate for your airflow environment
-        data_path = 'PATH_TO_FOLDER'
+        data_path = 'C:\Users\lidia\OneDrive\Desktop\Обучение\GB_Разработчик\Airflow\seminar7'
         os.makedirs(os.path.dirname(data_path), exist_ok=True)
         url = "https://raw.githubusercontent.com/apache/airflow/main/docs/apache-airflow/tutorial/pipeline_example.csv"
         response = requests.request("GET", url)
