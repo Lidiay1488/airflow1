@@ -34,7 +34,7 @@ sq_rand_figure_operator = PythonOperator(task_id='sq_rand_fig_task', python_call
 wether_operator = SimpleHttpOperator(
     task_id='wether_task',
     http_conn_id='wether_connect',
-    endpoint='/Paris',
+    endpoint='Paris',
     method='GET',
     response_filter=lambda response: loads(response.text),
     log_response=True,
