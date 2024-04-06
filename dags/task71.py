@@ -45,16 +45,16 @@ def ProcessEmployees():
     @task
     def get_data():
         # NOTE: configure this as appropriate for your airflow environment
-        data_path = 'https://github.com/Lidiay1488/airflow1/tree/main/config'
+        data_path = './data/'
         os.makedirs(os.path.dirname(data_path), exist_ok=True)
         url = "https://raw.githubusercontent.com/apache/airflow/main/docs/apache-airflow/tutorial/pipeline_example.csv"
         response = requests.request("GET", url)
-        with open(data_path, "w") as file:
+        with open(data_path + 'emp.csv', "w") as file:
             file.write(response.text)
         postgres_hook = PostgresHook(postgres_conn_id="pg_conn")
         conn = postgres_hook.get_conn()
         cur = conn.cursor()
-        with open(data_path, "r") as file:
+        with open(data_path + 'emp.csv', "r") as file:
             cur.copy_expert(
                 "COPY employees_temp FROM STDIN WITH CSV HEADER DELIMITER AS ',' QUOTE '\"'",
                 file,
