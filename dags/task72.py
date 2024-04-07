@@ -57,16 +57,16 @@ def ProcessEmployees():
     @task
     def get_data():
     # NOTE: configure this as appropriate for your airflow environment
-        data_path = "/Users/i344537/airflow/dags/files/employees.csv"
+        data_path = "./data/"
         os.makedirs(os.path.dirname(data_path), exist_ok=True)
         url = "https://raw.githubusercontent.com/apache/airflow/main/docs/apache-airflow/tutorial/pipeline_example.csv"
         response = requests.request("GET", url)
-        with open(data_path, "w") as file:
+        with open(data_path + 'emp.csv', "w") as file:
             file.write(response.text)
         postgres_hook = PostgresHook(postgres_conn_id="pg_conn")
         conn = postgres_hook.get_conn()
         cur = conn.cursor()
-        with open(data_path, "r") as file:
+        with open(data_path + 'emp.csv', "r") as file:
             cur.copy_expert(
                 "COPY employees_temp FROM STDIN WITH CSV HEADER DELIMITER AS ',' QUOTE '\"'",
                 file,
@@ -99,13 +99,15 @@ def ProcessEmployees():
             res_after = int(cur.execute(count_q))
             if res_after - res_before > 0:
                 ti.xcom_push(key="Number of added strings", value=res_after - res_before)
-            else: ti.xcom_push(key="Number of added strings", value=0)
+            else:
+                ti.xcom_push(key="Number of added strings", value=0)
             return 0
         except Exception as e:
             return 1
         
     
-    def send_email(ti=None):
+    # def send_email(ti=None):
+    def send_email(ti):
         number_of_added_rows = ti.xcom_pull(task_ids='merge_data')
         if number_of_added_rows > 0:
             email = 'example@email.com'
