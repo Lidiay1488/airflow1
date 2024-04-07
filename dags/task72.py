@@ -17,6 +17,7 @@ from airflow.decorators import dag, task
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.email import EmailOperator
+from airflow.operators.python import PythonOperator
 
 @dag(
     dag_id="process-employees2",
