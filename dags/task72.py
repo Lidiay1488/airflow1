@@ -107,7 +107,8 @@ def ProcessEmployees():
         
     
     # def send_email(ti=None):
-    def send_email(ti):
+    def send_email(**kwargs):
+        ti = kwargs["Number of added strings"]
         number_of_added_rows = ti.xcom_pull(task_ids='merge_data')
         if number_of_added_rows > 0:
             email = 'example@email.com'
