@@ -81,7 +81,7 @@ def ProcessEmployees():
             sqligth_hook = SqliteHook(sqlite_conn_id="sqligth_conn")
             conn = sqligth_hook.get_conn()
             cur = conn.cursor()
-            cur.execute(query)
+            cur.executescript(query)
             conn.commit()
             return 0
         except Exception as e:
