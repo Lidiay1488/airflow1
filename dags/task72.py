@@ -105,10 +105,11 @@ def ProcessEmployees():
         except Exception as e:
             return 1
         
-    
+    @task
     # def send_email(ti=None):
-    def send_email(**kwargs):
-        ti = kwargs["Number of added strings"]
+    # def send_email(**kwargs):
+    def send_email(ti):
+        # ti = kwargs["Number of added strings"]
         number_of_added_rows = ti.xcom_pull(task_ids='merge_data')
         if number_of_added_rows > 0:
             email = 'example@email.com'
