@@ -86,6 +86,6 @@ def ProcessEmployees():
             return 0
         except Exception as e:
             return 1
-    [create_employees_table, create_employees_temp_table] >> get_data() >> merge_data()
+    create_employees_table >> create_employees_temp_table >> get_data() >> merge_data()
 dag = ProcessEmployees()
 
