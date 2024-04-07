@@ -13,7 +13,7 @@ import datetime
 import pendulum
 import os
 import requests
-from airflow.decorators import dag, task, XComArg
+from airflow.decorators import dag, task
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.email import EmailOperator
