@@ -32,9 +32,7 @@ send_tg_message = TelegramOperator(
     task_id='send_telega', 
     token="6386041499:AAHdtdhAMXq9TZmNqQ4_POeC-XX5veHDmsI", 
     chat_id=533785491, 
-    text='Температура в Лондоне по версии Openweather: \
-        {{ ti.xcom_pull(key="temperature_openweather", task_ids="get_weather_data") }}\n \
-        Температура в Лондоне по версии Yandex: \
+    text= 'Температура в Лондоне по версии Yandex: \
         {{ ti.xcom_pull(key="temperature_yandex", task_ids="get_weather_data") }}',
     dag=sem8dag  
 )
