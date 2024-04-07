@@ -29,6 +29,7 @@ get_weather = PythonOperator(task_id = "get_weather_data",python_callable=get_we
 
 
 send_tg_message = TelegramOperator(
+    telegram_conn_id='telegr_conn',
     task_id='send_telega', 
     token="6386041499:AAHdtdhAMXq9TZmNqQ4_POeC-XX5veHDmsI", 
     chat_id=533785491, 
