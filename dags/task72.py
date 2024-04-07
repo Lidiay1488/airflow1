@@ -105,11 +105,8 @@ def ProcessEmployees():
         except Exception as e:
             return 1
         
-    @task
-    # def send_email(ti=None):
-    # def send_email(**kwargs):
+
     def send_email(ti):
-        # ti = kwargs["Number of added strings"]
         number_of_added_rows = ti.xcom_pull(task_ids='merge_data')
         if number_of_added_rows > 0:
             email = 'example@email.com'
@@ -117,6 +114,9 @@ def ProcessEmployees():
             subject = "Added rows"
             EmailOperator(to=email, subject=subject, html_content=msg)
 
-    [create_employees_table, create_employees_temp_table] >> get_data() >> merge_data() >> send_email()
+
+    send_email = PythonOperator(task_id='send_email', python_callable=send_email, dag=dag)
+
+    [create_employees_table, create_employees_temp_table] >> get_data() >> merge_data() >> send_email
 
 dag = ProcessEmployees()
