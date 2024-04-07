@@ -3,3 +3,4 @@ lxml
 beautifulsoup4
 astronomer-providers[google]
 pandas
+apache-airflow-providers-telegram
